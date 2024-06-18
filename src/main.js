@@ -5,15 +5,20 @@ launcher.reset()
 /* Setup DigitalIO */
 function set_dio(){
 	
-    /* Set channel 0 as an output for the motor */
+    /* Set channel 1 as a voltage output */
 	dio.dir[0]=true
 	dio.out[0]=true
 	
-	/* Set all other channels as sensor inputs */
-	for ( var i = 1; i < 3; i++){
-		dio.dir[i]=false
-		dio.out[i]=false
-	}
+	/* Set channels 2 and3 as sensor inputs */
+	dio.dir[1]=false
+	dio.out[1]=false
+    dio.dir[2]=false
+	dio.out[2]=false
+
+    /* Set channel 4 as an output for the motor */
+	dio.dir[3]=true
+	dio.out[3]=true
+
 	
 	/* Run DigitalIO */
 	dio.running = true
@@ -28,11 +33,11 @@ function check_tank(){
     var upper_sensor_status = dio.out[2]
 
     if (lower_sensor_status == 0) {   // lower sensor detects NO water
-        dio.out[0] = true             // Turn pump ON
+        dio.out[3] = true             // Turn pump ON
     }
 
     if (upper_sensor_status == 1) {   // upper sensor detects water
-        dio.out[0] = false            // Turn pump OFF
+        dio.out[3] = false            // Turn pump OFF
     }
 
     msleep(1000)
