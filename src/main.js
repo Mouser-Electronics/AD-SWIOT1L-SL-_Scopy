@@ -45,6 +45,36 @@ function check_tank(){
 }
 
 
+/*Setup Oscilloscope*/
+function set_oscilloscope(){
+	
+	/* Enable Oscilloscope Channel 1  */
+	osc.channels[0].enabled = true
+	osc.channels[1].enabled = true
+    osc.channels[2].enabled = true
+	osc.channels[3].enabled = true
+	
+	/* Set Volts/Div to 1V/div */
+	osc.channels[0].volts_per_div = 1
+    osc.channels[1].volts_per_div = 1
+    osc.channels[2].volts_per_div = 1
+    osc.channels[3].volts_per_div = 1
+	
+	/* Set Time Base to 1 ms */
+	osc.time_base = 0.001
+	
+	/* Set Time Position to 0s */
+	osc.time_position = 0
+	
+	/* Run Oscilloscope */
+	osc.running = true
+}
+
+
+
+
+
+
 /* main function */
 function main(){
 
@@ -53,6 +83,24 @@ function main(){
     check_tank()
 	
     msleep(1000)
+
+    set_oscilloscope()
+	
+	msleep(1000)
+	
+	set_oscilloscope()
+	
+	msleep(1000)
+	
+	var pp1 = osc.channels[0].peak_to_peak
+    var pp2 = osc.channels[0].peak_to_peak
+    var pp3 = osc.channels[0].peak_to_peak
+    var pp4 = osc.channels[0].peak_to_peak
+
+	printToConsole(pp1)
+    printToConsole(pp2)
+    printToConsole(pp3)
+    printToConsole(pp4)
 }
 
 main()
